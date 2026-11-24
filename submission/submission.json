@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "title": "No three in progression up to 50, checked",
+  "claims": [
+    {
+      "statement": "The 15 integers up to 50 whose base-3 digits are all 0 or 1 contain no three-term progression.",
+      "score": {
+        "numerator": "15",
+        "denominator": "1"
+      },
+      "evidence": [
+        "proof.md"
+      ]
+    }
+  ],
+  "experiments": [],
+  "checks": [
+    {
+      "check": "no_three_ap",
+      "inputs": {
+        "set": [
+          1,
+          3,
+          4,
+          9,
+          10,
+          12,
+          13,
+          27,
+          28,
+          30,
+          31,
+          36,
+          37,
+          39,
+          40
+        ]
+      }
+    }
+  ]
+}

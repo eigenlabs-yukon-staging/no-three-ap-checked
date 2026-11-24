@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "id": "no-three-ap-checked",
+  "rules_path": "rules.md",
+  "provider": {
+    "model": "gpt-6-luna"
+  },
+  "policies": {
+    "scoring": {},
+    "validity": {}
+  },
+  "supported_policies": {
+    "scoring": [
+      {
+        "selector": {},
+        "instructions": "Use the configured score source."
+      }
+    ],
+    "validity": [
+      {
+        "selector": {},
+        "instructions": "Apply rules.md to the complete claim and proof."
+      }
+    ]
+  },
+  "review_standard": "no-three-ap-checked-review-v1",
+  "objectives": [
+    {
+      "name": "set_size",
+      "direction": "+",
+      "unit": "elements",
+      "semantics": "The size the no_three_ap checker reports for the declared set.",
+      "score_source": {
+        "check": "no_three_ap",
+        "field": "size"
+      }
+    }
+  ],
+  "allow_unscored": false,
+  "limits": {
+    "max_followups": 0
+  },
+  "checkers": [
+    {
+      "id": "no_three_ap",
+      "description": "Checks the set is distinct integers in 1..50 with no three-term arithmetic progression, and reports its size.",
+      "source": "checkers/no_three_ap.py",
+      "files": [
+        "checkers/no_three_ap.py"
+      ],
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "set"
+        ],
+        "properties": {
+          "set": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "integer",
+              "minimum": -1000,
+              "maximum": 1000
+            }
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "passed",
+          "size"
+        ],
+        "properties": {
+          "passed": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50
+          }
+        }
+      },
+      "required_for_score": true
+    }
+  ]
+}
